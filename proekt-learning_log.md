@@ -27,7 +27,7 @@ source ll_env/bin/activate
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Создание и активация окружения</p></figcaption></figure>
 
-<mark style="color:orange;">❗️ Если вы работаете в системе</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Windows**</mark><mark style="color:orange;">, используйте команду l</mark><mark style="color:orange;">**l\_env\ Scripts\activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">(без слова source) для активизации виртуальной среды . Если используете</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**PowerShell**</mark><mark style="color:orange;">, слово</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">должно начинаться с буквы верхнего регистра.</mark>
+<mark style="color:orange;">❗️ Если вы работаете в системе</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Windows**</mark><mark style="color:orange;">, используйте команду</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**ll\_env\ Scripts\activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">(без слова source) для активизации виртуальной среды. Если используете</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**PowerShell**</mark><mark style="color:orange;">, слово</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">должно начинаться с буквы верхнего регистра.</mark>
 
 ## Установка Django
 
@@ -53,7 +53,7 @@ ls learning_log
 
 Команда на изображении под номером **`1`** указывает Django создать новый проект с именем **learning\_log**. Точка в конце команды создает новый проект со структурой каталогов, которая упрощает развертывание приложения на сервере после завершения разработки.
 
-<mark style="color:orange;">❗️Не забывайте про точку, иначе у вас могут возникнуть проблемы с конфигурацией при развертывании приложения . А если вы все же забыли, удалите созданные файлы и папки (кроме</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**ll\_env**</mark><mark style="color:orange;">) и снова выполните команду</mark>
+<mark style="color:orange;">❗️Не забывайте про точку, иначе у вас могут возникнуть проблемы с конфигурацией при развертывании приложения. А если вы все же забыли, удалите созданные файлы и папки (кроме</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**ll\_env**</mark><mark style="color:orange;">) и снова выполните команду.</mark>
 
 Команда **ls** (**dir** в Windows) на изображении под номером **`2`** показывает, что Django создает новый каталог с именем **learning\_log**. Также создается файл **manage.py** — короткая программа, которая получает команды и передает их соответствующей части Django для выполнения. Мы используем эти команды для управления такими задачами, как работа с базами данных и запуск серверов.
 
@@ -84,7 +84,7 @@ ls
 
 На изображении под номером **2**. SQLite — база данных, работающая с одним файлом; она идеально подходит для написания простых приложений.
 
-<mark style="color:orange;">❗️В активной виртуальной среде для выполнения команд manage.py используется команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark><mark style="color:orange;">, даже если для запуска других программ вы используете другую команду (например,</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python3**</mark><mark style="color:orange;">) . В виртуальной среде команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">относится к версии Python, создавшей виртуальную среду.</mark>
+<mark style="color:orange;">❗️В активной виртуальной среде для выполнения команд manage.py используется команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark><mark style="color:orange;">, даже если для запуска других программ вы используете другую команду (например,</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python3**</mark><mark style="color:orange;">). В виртуальной среде команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">относится к версии Python, создавшей виртуальную среду.</mark>
 
 ## Просмотр проекта
 
