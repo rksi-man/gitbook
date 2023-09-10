@@ -110,7 +110,9 @@ source my_venv/bin/activate
 C:\> my_venv\Scripts\activate.bat
 ```
 
-<mark style="color:orange;">❗️В команде выше обратите внимание, что в Windows поддиректория с исполняемыми файлами называется не</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**`bin`**</mark><mark style="color:orange;">, а</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**`Scripts`**</mark><mark style="color:orange;">.</mark>
+{% hint style="warning" %}
+В команде выше обратите внимание, что в Windows поддиректория с исполняемыми файлами называется не **`bin`**, а **`Scripts`**.
+{% endhint %}
 
 На Mac и Linux активация выглядит следующим образом:\
 

@@ -27,7 +27,9 @@ source ll_env/bin/activate
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Создание и активация окружения</p></figcaption></figure>
 
-<mark style="color:orange;">❗️ Если вы работаете в системе</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Windows**</mark><mark style="color:orange;">, используйте команду</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**ll\_env\ Scripts\activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">(без слова source) для активизации виртуальной среды. Если используете</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**PowerShell**</mark><mark style="color:orange;">, слово</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Activate**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">должно начинаться с буквы верхнего регистра.</mark>
+{% hint style="warning" %}
+Если вы работаете в системе **Windows**, используйте команду **ll\_env\ Scripts\activate** (без слова source) для активизации виртуальной среды. Если используете **PowerShell**, слово **Activate** должно начинаться с буквы верхнего регистра.
+{% endhint %}
 
 ## Установка Django
 
@@ -53,7 +55,9 @@ ls learning_log
 
 Команда на изображении под номером **`1`** указывает Django создать новый проект с именем **learning\_log**. Точка в конце команды создает новый проект со структурой каталогов, которая упрощает развертывание приложения на сервере после завершения разработки.
 
-<mark style="color:orange;">❗️Не забывайте про точку, иначе у вас могут возникнуть проблемы с конфигурацией при развертывании приложения. А если вы все же забыли, удалите созданные файлы и папки (кроме</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**ll\_env**</mark><mark style="color:orange;">) и снова выполните команду.</mark>
+{% hint style="danger" %}
+**Не забывайте про точку**, иначе у вас могут возникнуть проблемы с конфигурацией при развертывании приложения. А если вы все же забыли, удалите созданные файлы и папки (кроме **ll\_env**) и снова выполните команду.
+{% endhint %}
 
 Команда **ls** (**dir** в Windows) на изображении под номером **`2`** показывает, что Django создает новый каталог с именем **learning\_log**. Также создается файл **manage.py** — короткая программа, которая получает команды и передает их соответствующей части Django для выполнения. Мы используем эти команды для управления такими задачами, как работа с базами данных и запуск серверов.
 
@@ -84,7 +88,9 @@ ls
 
 На изображении под номером **2**. SQLite — база данных, работающая с одним файлом; она идеально подходит для написания простых приложений.
 
-<mark style="color:orange;">❗️В активной виртуальной среде для выполнения команд manage.py используется команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark><mark style="color:orange;">, даже если для запуска других программ вы используете другую команду (например,</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python3**</mark><mark style="color:orange;">). В виртуальной среде команда</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**python**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">относится к версии Python, создавшей виртуальную среду.</mark>
+{% hint style="info" %}
+В активной виртуальной среде для выполнения команд manage.py используется команда **python**, даже если для запуска других программ вы используете другую команду (например, **python3**). В виртуальной среде команда **python** относится к версии Python, создавшей виртуальную среду.
+{% endhint %}
 
 ## Просмотр проекта
 
@@ -211,7 +217,9 @@ class Topic(models.Model):
 
 Аргумент **auto\_add\_now=True** приказывает Django автоматически присвоить этому атрибуту текущую дату и время каждый раз, когда пользователь создает новую тему.
 
-<mark style="color:orange;">❗️Полный список всех полей, которые могут использоваться в моде- ли, приведены в документе Django Model Field Reference на</mark> [<mark style="color:orange;">**https://docs.djangoproject.com/en/4.2/ref/models/fields/**</mark>](https://docs.djangoproject.com/en/4.2/ref/models/fields/)&#x20;
+{% hint style="info" %}
+Полный список всех полей, которые могут использоваться в модели, приведены в документе Django Model Field Reference [**https://docs.djangoproject.com/en/4.2/ref/models/fields/**](https://docs.djangoproject.com/en/4.2/ref/models/fields/)&#x20;
+{% endhint %}
 
 Необходимо сообщить Django, какой атрибут должен использоваться по умолчанию при вводе информации о теме.&#x20;
 
@@ -260,7 +268,9 @@ INSTALLED_APPS = [
 
 Группировка приложений в проекте упрощает управление ими по мере того, как проект растет, а количество приложений увеличивается. Здесь мы создаем раздел, который пока содержит только приложение **learning\_logs**.&#x20;
 
-<mark style="color:orange;">❗️Очень важно разместить свои приложения перед приложениями по умолчанию на случай, если вам понадобится переопределить поведение таких приложений.</mark>
+{% hint style="danger" %}
+Очень важно разместить свои приложения перед приложениями по умолчанию на случай, если вам понадобится переопределить поведение таких приложений.
+{% endhint %}
 
 Затем необходимо указать Django изменить базу данных для хранения информации, относящейся к модели **Topic**. В терминальном окне введите следующую команду:
 
@@ -330,7 +340,9 @@ python manage.py createsuperuser
 
 Если пароль будет очень простым Django предупредит об этом и запросит подтверждение.
 
-<mark style="color:orange;">❗️Часть конфиденциальной информации может быть скрыта от администраторов сайта . Например, Django на самом деле не сохраняет введенный пароль, вместо этого сохраняется хеш — специальная строка, построенная на основе пароля. И когда в будущем вы вводите пароль, Django снова хеширует введенные данные и сравнивает результат с хранимым хешем. Если два хеша совпадают, то проверка пройдена. Если же злоумышленник в результате атаки получит доступ к базе данных сайта, то он сможет прочитать только хранящийся в базе хеш, но не пароли. При правильной настройке сайта восстановить исходные пароли из хешей почти невозможно.</mark>
+{% hint style="info" %}
+Часть конфиденциальной информации может быть скрыта от администраторов сайта. Например, Django на самом деле не сохраняет введенный пароль, вместо этого сохраняется хеш — специальная строка, построенная на основе пароля. И когда в будущем вы вводите пароль, Django снова хеширует введенные данные и сравнивает результат с хранимым хешем. Если два хеша совпадают, то проверка пройдена. Если же злоумышленник в результате атаки получит доступ к базе данных сайта, то он сможет прочитать только хранящийся в базе хеш, но не пароли. При правильной настройке сайта восстановить исходные пароли из хешей почти невозможно.
+{% endhint %}
 
 ### Регистрация модели на административном сайте
 
@@ -430,7 +442,9 @@ class Entry(models.Model):
 
 Класс **Meta** вкладывается в класс **Entry**. Класс **Meta** хранит дополнительную информацию по управлению моделью, в данном случае он позволяет задать специальный атрибут, который указывает Django использовать форму множественного числа **Entries** при обращении более чем к одной записи.&#x20;
 
-<mark style="color:orange;">❗️Без этого Django будет использовать неправильную форму Entrys.</mark>
+{% hint style="danger" %}
+Без этого Django будет использовать неправильную форму **Entrys**.
+{% endhint %}
 
 Метод **\_\_str\_\_()** сообщает Django, какая информация должна отображаться при обращении к отдельным записям. Так как запись может быть достаточно длинным блоком текста, мы указываем Django выводить только первые 50 символов. Также добавляется многоточие — признак вывода неполного текста.
 
@@ -480,7 +494,9 @@ admin.site.register(Entry)
 
 <figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption><p>Add new entry</p></figcaption></figure>
 
-<mark style="color:red;">⚠️ Создайте вторую запись для темы</mark> <mark style="color:red;"></mark><mark style="color:red;">**Chess**</mark> <mark style="color:red;"></mark><mark style="color:red;">и одну запись для темы</mark> <mark style="color:red;"></mark><mark style="color:red;">**Rock Climbing**</mark><mark style="color:red;">, чтобы у нас были исходные данные для дальнейшей разработки приложения. Всего должно быть 3 записи.</mark>
+{% hint style="danger" %}
+Создайте вторую запись для темы **Chess** и одну запись для темы **Rock Climbing**, чтобы у нас были исходные данные для дальнейшей разработки приложения. Всего должно быть 3 записи.
+{% endhint %}
 
 <figure><img src=".gitbook/assets/image (29).png" alt=""><figcaption><p>All <a href="http://localhost:8000/admin/learning_logs/entry/">Entries</a></p></figcaption></figure>
 
@@ -558,7 +574,9 @@ Django может использовать эту связь для получе
 
 Если код выдает ошибки или не загружает те данные, которые должен загружать, вам будет намного проще отладить его в простой оболочке, чем при работе с файлами, генерирующими веб-страницы.
 
-<mark style="color:orange;">❗️При каждом изменении модели необходимо перезапустить оболочку, чтобы увидеть результаты этих изменений. Чтобы завершить сеанс работы с оболочкой, нажмите</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Сtrl+D**</mark><mark style="color:orange;">, в Windows нажмите</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Ctrl+Z**</mark><mark style="color:orange;">, а затем</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**Enter**</mark><mark style="color:orange;">.</mark>
+{% hint style="danger" %}
+При каждом изменении модели необходимо перезапустить оболочку, чтобы увидеть результаты этих изменений. Чтобы завершить сеанс работы с оболочкой, нажмите **Сtrl+D**, в Windows нажмите **Ctrl+Z**, а затем **Enter**.
+{% endhint %}
 
 ## Создание страниц: домашняя страница Learning Log
 
@@ -867,7 +885,9 @@ Django берет запрошенный URL-адрес и видит, что о
 
 В проекте из десятков и сотен страниц такая структура значительно упрощает и ускоряет доработку сайта.
 
-<mark style="color:orange;">❗️В больших проектах часто создается один родительский шаблон</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**base.html**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">для всего сайта и родительские шаблоны для каждого крупного раздела сайта . Все шаблоны разделов наследуют от</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**base.html**</mark><mark style="color:orange;">, и каждая страница сайта наследует от шаблона раздела . При такой структуре вы сможете легко изменять оформление и поведение сайта в целом, любого его раздела или отдельной страницы. Данная конфигурация сильно повышает эффективность работы.</mark>
+{% hint style="danger" %}
+В больших проектах часто создается один родительский шаблон **base.html** для всего сайта и родительские шаблоны для каждого крупного раздела сайта. Все шаблоны разделов наследуют от **base.html**, и каждая страница сайта наследует от шаблона раздела. При такой структуре вы сможете легко изменять оформление и поведение сайта в целом, любого его раздела или отдельной страницы. Данная конфигурация сильно повышает эффективность работы.
+{% endhint %}
 
 ## Страница со списком тем
 
@@ -1095,7 +1115,9 @@ def topic(request, topic_id):
 
 Тема и записи сохраняются в словаре **context** — `context = {'topic': topic, 'entries': entries}`, который передается шаблону **topic.html** — `return render(request, 'learning_logs/topic.html', context)`
 
-<mark style="color:orange;">❗️Выражения в строках topic =</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**`Topic.objects.get(id=topic_id)`**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">и</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**`entries = topic.entry_set.order_by('-date_added')`**</mark><mark style="color:orange;">, обращающиеся к базе данных за конкретной информацией, называются</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**запросами**</mark><mark style="color:orange;">. Когда вы пишете подобные запросы для своих проектов, сначала опробуйте их в</mark> [<mark style="color:orange;">оболочке Django(shell)</mark>](proekt-learning\_log.md#interaktivnaya-obolochka-django)<mark style="color:orange;">. Вы сможете проверить результат намного быстрее, чем если напишете представление и шаблон, а затем проверите результаты в браузере.</mark>
+{% hint style="warning" %}
+Выражения в строках topic = **`Topic.objects.get(id=topic_id)`** и **`entries = topic.entry_set.order_by('-date_added')`**, обращающиеся к базе данных за конкретной информацией, называются **запросами**. Когда вы пишете подобные запросы для своих проектов, сначала опробуйте их в [оболочке Django(shell)](proekt-learning\_log.md#interaktivnaya-obolochka-django). Вы сможете проверить результат намного быстрее, чем если напишете представление и шаблон, а затем проверите результаты в браузере.
+{% endhint %}
 
 ### Шаблон отдельной темы
 
@@ -1195,4 +1217,6 @@ def topic(request, topic_id):
 
 {% embed url="https://youtu.be/PY39xU1RCmY" %}
 
-<mark style="color:orange;">❗️Между</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**topic.id**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">и</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**topic\_id**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">существует неочевидное, но важное различие. Выражение</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**topic.id**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">проверяет тему и получает значение соответствующего идентификатора. Переменная</mark> <mark style="color:orange;"></mark><mark style="color:orange;">**topic\_id**</mark> <mark style="color:orange;"></mark><mark style="color:orange;">содержит ссылку на этот идентификатор в коде .</mark>
+{% hint style="warning" %}
+Между **topic.id** и **topic\_id** существует неочевидное, но важное различие. Выражение **topic.id** проверяет тему и получает значение соответствующего идентификатора. Переменная **topic\_id** содержит ссылку на этот идентификатор в коде.
+{% endhint %}
