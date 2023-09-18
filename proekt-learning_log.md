@@ -1984,7 +1984,7 @@ def register(request):
 </strong><strong>            return redirect('learning_logs:index')
 </strong>    # Вывести пустую или недействительную форму.
     context = {'form': form}
-    return render(request, 'users/register.html', context)
+    return render(request, 'registration/register.html', context)
 </code></pre>
 
 Сначала импортируются функции **render()** и **redirect()**. Затем мы импортируем функцию **login()** для выполнения входа пользователя, если регистрационная информация верна.&#x20;
