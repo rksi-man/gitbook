@@ -25,7 +25,7 @@ source ll_env/bin/activate
 
 Пакеты, установленные в **ll\_env**, будут доступны только в то время, пока среда остается активной.
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Создание и активация окружения</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Создание и активация окружения</p></figcaption></figure>
 
 {% hint style="warning" %}
 Если вы работаете в системе **Windows**, используйте команду **ll\_env\ Scripts\activate** (без слова source) для активизации виртуальной среды. Если используете **PowerShell**, слово **Activate** должно начинаться с буквы верхнего регистра.
@@ -39,7 +39,7 @@ source ll_env/bin/activate
 pip install django
 ```
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption><p>Установка Django</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Установка Django</p></figcaption></figure>
 
 ## Создание проекта в Django
 
@@ -1050,7 +1050,7 @@ def topics(request):
 
 Обновив домашнюю страницу в браузере, вы увидите ссылку [**Topics**](http://localhost:8000/topics/)
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ### Страницы отдельных тем
 
@@ -1725,7 +1725,129 @@ urlpatterns = [
 Edit entry
 {% endembed %}
 
+### Создание учетных записей пользователей
 
+В этом разделе мы создадим систему регистрации и авторизации пользователей, чтобы люди могли создать учетную запись, начать и завершать сеанс работы с приложением.&#x20;
+
+Для всей функциональности, относящейся к работе с пользователями, будет создано отдельное приложение. Мы также слегка изменим модель **Topic**, чтобы каждая тема была связана с конкретным пользователем.
+
+#### Приложение users
+
+Начнем с создания нового приложения **users** командой **startapp**:
+
+{% code title="shell" %}
+```bash
+(ll_env)learning_log$ python manage.py startapp users
+(ll_env)learning_log$ ls
+db.sqlite3 learning_log learning_logs ll_env manage.py users
+(ll_env)learning_log$ ls users
+__init__.py admin.py apps.py migrations models.py tests.py views.py
+```
+{% endcode %}
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Первая команда создает новый каталог с именем **users**, структура которого повторяет структуру каталогов приложения **learning\_logs**.
+
+#### Добавление пользователей в settings.py
+
+Новое приложение необходимо добавить в **settings.py**:
+
+{% code title="settings.py" %}
+```python
+...
+INSTALLED_APPS = [
+    # Мои приложения
+    'learning_logs',
+    'users',
+    # Приложения django по умолчанию.
+... ]
+...
+```
+{% endcode %}
+
+Django включает приложение **users** в общий проект.
+
+#### Включение URL-адресов из users
+
+Затем необходимо изменить корневой файл **urls.py**, чтобы он включал URL-адреса, написанные для приложения **users**:
+
+<pre class="language-python" data-title="urls.py"><code class="lang-python">from django.contrib import admin
+from django.urls import path, include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+<strong>    path('users/', include('users.urls')),
+</strong>    path('', include('learning_logs.urls')),
+]
+</code></pre>
+
+Добавим строку для включения файла **urls.py** из **users**. Эта строка будет соответствовать любому URL-адресу, начинающемуся со слова **users**, например [http://localhost:8000/users/login/](http://localhost:8000/users/login/)
+
+#### Страница входа
+
+Начнем с реализации страницы входа. Мы воспользуемся стандартным представлением **login**, которое предоставляет Django, так что шаблон URL выглядит немного иначе.
+
+{% hint style="warning" %}
+Создайте новый файл **urls.py** в каталоге **learning\_log/users/** и добавьте в него следующий код:
+{% endhint %}
+
+<pre class="language-python" data-title="urls.py" data-line-numbers><code class="lang-python">"""Определяет схемы URL для пользователей"""
+<strong>from django.urls import path, include
+</strong>
+<strong>app_name = 'users'
+</strong><strong>urlpatterns = [
+</strong>    # Включить URL авторизации по умолчанию.
+<strong>    path('', include('django.contrib.auth.urls')), 
+</strong><strong>]
+</strong></code></pre>
+
+Сначала импортируется функция **path**, а затем функция **include** для включения аутентификационных URL-адресов по умолчанию, определенных Django.&#x20;
+
+Эти URL-адреса по умолчанию включают именованные схемы, такие как '**login**' и '**logout**'. Переменной **app\_name** присваивается значение '**users**', чтобы инфраструктура Django могла отличить эти URL-адреса от URL-адресов, принадлежащих другим приложениям. (**строка 4**)
+
+Даже URL-адреса по умолчанию, предоставляемые Django, при включении в файл **urls.py** приложения **users** будут доступны через пространство имен **users**.
+
+Схема страницы входа соответствует URL [http://localhost:8000/users/login/](http://localhost:8000/users/login/) (**строка 7**)
+
+Когда Django читает этот URL-адрес, слово **users** указывает, что следует обратиться к **users/urls.py**, а **login** сообщает о том, что запросы должны отправляться представлению **login** по умолчанию.
+
+#### Шаблон login
+
+Когда пользователь запрашивает страницу входа, Django использует свое представление **login** по умолчанию, но мы все равно должны предоставить шаблон для этой страницы.&#x20;
+
+Аутентификационные представления по умолчанию ищут шаблоны в каталоге с именем **registration**, поэтому вы должны создать этот каталог.&#x20;
+
+В каталоге **learning\_log/users/** создайте каталог с именем **templates**, а внутри него — еще один каталог с именем **registration**. Вот как выглядит шаблон **login.html**, который должен находиться в **learning\_log/users/templates/registration/**:
+
+{% code title="login.html" lineNumbers="true" %}
+```django
+{% raw %}
+{% extends "learning_logs/base.html" %}
+{% block content %}
+{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+	<form method="post" action="{% url 'users:login' %}">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button name="submit">log in</button>
+		<input type="hidden" name="next"
+			   value="{% url 'learning_logs:index' %}"/>
+	</form>
+{% endblock content %}
+{% endraw %}
+```
+{% endcode %}
+
+Шаблон расширяет **base.html**, чтобы страница входа по оформлению и поведению была похожа на другие страницы сайта.&#x20;
+
+{% hint style="warning" %}
+**Обратите внимание**: шаблон в одном приложении может расширять шаблон из другого приложения.
+{% endhint %}
+
+Если у формы установлен атрибут **errors**, выводится сообщение об ошибке (**строка 3**). В нем говорится, что комбинация имени пользователя и пароля не соответствует информации, хранящейся в базе данных.
+
+Мы хотим, чтобы представление обработало форму, поэтому аргументу action присваивается URL страницы входа . Представление отправляет форму шаблону, мы должны вывести формуи добавить кнопку отправки данных. В точке включается скрытый элемент формы 'next'; аргумент value сообщает Django, куда перенаправить пользователя после успешно выполненного входа. В нашем случае пользователь возвращается обратно на домашнюю страницу.
 
 [^1]: <img src=".gitbook/assets/image (34).png" alt="" data-size="original">
 
