@@ -526,7 +526,7 @@ python manage.py shell
 ```python
 >>> topics = Topic.objects.all() 
 >>> for topic in topics:
-... print(topic.id, topic)
+...     print(topic.id, topic)
 ...
 1 Chess
 2 Rock Climbing
