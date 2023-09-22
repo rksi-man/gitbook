@@ -2458,6 +2458,103 @@ def new_topic(request):
 
 Для чтения соответствующих данных использовался метод **filter()**, а владелец запрашиваемых данных сравнивался с текущим пользователем.
 
+## Оформление приложения
+
+До сих пор мы намеренно игнорировали оформление приложения, чтобы сосредоточиться на его функциональности. И это вполне разумный подход к разработке, потому что приложение приносит пользу только в том случае, если оно работает. Конечно, когда приложение начинает работать, оформление выходит на первый план, чтобы пользователи захотели работать с ним.
+
+### Приложение django-bootstrap4
+
+Для интеграции Bootstrap в наш проект будет использоваться приложение **django-bootstrap4** Это приложение загружает необходимые файлы Bootstrap, размещает их в правильных каталогах проекта и предоставляет доступ к стилевым директивам в шаблонах проекта.
+
+Чтобы установить **django-bootstrap4**, введите следующую команду в активной виртуальной среде:
+
+```sh
+(ll_env) ➜  learning_log pip install django-bootstrap4 
+Successfully installed django-bootstrap4-23.2
+```
+
+Затем необходимо добавить следующий код для включения **django-bootstrap4** в список **INSTALLED\_APPS** в файле **settings.py**:
+
+```
+...
+# Сторонние приложения
+'bootstrap4',
+...
+```
+
+Создайте новую секцию для приложений, созданных другими разработчиками, и включите в нее запись '**bootstrap4**'. Проследите за тем, чтобы секция располагалась после секции # Мои приложения, но перед секцией, содержащей приложения Django по умолчанию.
+
+### Использование Bootstrap для оформления Learning Log
+
+По сути, Bootstrap представляет собой большой набор инструментов стилевого оформления. Также библиотека содержит ряд шаблонов, которые можно применить к проекту для формирования общего стиля. Пользоваться этими шаблонами намного проще, чем отдельными инструментами оформления. Чтобы просмотреть шаблоны, предоставляемые Bootstrap, перейдите по ссылке [http://getbootstrap.com/](http://getbootstrap.com/), щелкните на ссылке **Examples** и найдите раздел **Navbars**. Мы воспользуемся шаблоном **Navbar static**, который предоставляет простую панель навигации и контейнер для содержимого страницы.
+
+#### Изменение base.html
+
+Шаблон **base.html** необходимо изменить так, чтобы в нем был задействован шаблон **Bootstrap**. Новая версия **base.html** будет представлена в несколько этапов.
+
+#### Определение заголовков HTML
+
+Первое изменение в **base.html**: заголовки HTML определяются в файле, чтобы при открытии страницы Learning Log в строке заголовка браузера выводилось имя сайта. Также будут добавлены некоторые требования для использования Bootstrap в шаблонах. Удалите все содержимое **base.html** и замените его следующим кодом:
+
+```django
+{% raw %}
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Learning Log</title>
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+	<a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+		Learning Log</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span></button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'learning_logs:topics' %}">
+					Topics</a></li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			{% if user.is_authenticated %}
+				<li class="nav-item">
+					<span class="navbar-text"> Hello, {{ user.username }}.</span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:register' %}">Register</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>
+<main role="main" class="container">
+	<div class="pb-2 mb-2 border-bottom">
+		{% block page_header %}{% endblock page_header %}
+	</div>
+	<div>
+		{% block content %}{% endblock content %}
+{% endraw %}
+	</div>
+</main>
+</body>
+</html>
+```
+
 [^1]: <img src=".gitbook/assets/image (34).png" alt="" data-size="original">
 
 [^2]: <img src=".gitbook/assets/image (35).png" alt="" data-size="original">
